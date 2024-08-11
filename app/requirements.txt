@@ -5,3 +5,12 @@ torch
 joblib
 scikit-learn
 Werkzeug==2.0.3
+
+# Roboflow Inference
+inference-gpu
+roboflow
+
+# Tesseract OCR Extra Feature
+tesseract
+pytesseract
+Pillow

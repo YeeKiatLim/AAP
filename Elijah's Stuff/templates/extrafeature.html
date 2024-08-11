@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Message to Text{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<h1 class="display-4">Tesseract OCR - Extra Feature</h1>
+<form action="/extrafeature" method="post" enctype="multipart/form-data">
+    <label for="formFile" class="form-label">Input a File</label>
+    <input class="form-control" type="file" id="formFile" name="file" accept="image/*">
+    <button type="submit" class="btn btn-primary mt-2">Upload</button>
+</form>
+
+{% if error %}
+<p style="color: red;" class="mt-2">{{ error }}</p>
+{% endif %}
+
+{% if extracted_text %}
+<div id="result" class="mt-5">
+    <h2 class="h2">Extracted Text:</h2>
+    <p>{{ extracted_text }}</p>
+</div>
+{% endif %}
+
+{% endblock %}

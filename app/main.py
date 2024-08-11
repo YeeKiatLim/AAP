@@ -5,8 +5,8 @@ from transformers.pipelines.audio_utils import ffmpeg_read
 
 def get_model(model_path):
     """Load a Hugging Face model and tokenizer from the specified directory"""
-    processor = AutoProcessor.from_pretrained("PaidDatasetsBad/bad-whisper")
-    model = AutoModelForSpeechSeq2Seq.from_pretrained("PaidDatasetsBad/bad-whisper")
+    processor = AutoProcessor.from_pretrained(model_path)
+    model = AutoModelForSpeechSeq2Seq.from_pretrained(model_path)
     return model, processor
 
 # Load the model and processor

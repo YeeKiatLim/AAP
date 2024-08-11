@@ -1,35 +1,36 @@
-<html>
-<header>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech to Text</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</header>
-
+    <!-- Optional JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
 <body>
-    <div id="demoapp" style="padding:30px">
-        <h2 class="center-align">Speech to Text</h2>
-        <div style="padding-block:10px; padding-inline:200px">
-                <div class="card-panel">
-                    <div class="file-field input-field">
-                        <div class="btn">
-                            <span>Input Audio File</span>
-                            <input type="file" @change="uploadFile" ref="file">
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text">
-                        </div>
-                    </div>
-                    <audio id="audio-preview" controls v-show="audio_file != ''"></audio>
-                    <div class="center-align" style="padding: 10px">
-                        <a class="waves-effect waves-light btn" @click="transcribeAudio">Transcribe Audio</a>
-                    </div>
-                </div>
-            <h4 id="output" style="padding-inline:50px">Text: </h4>
+    <div id="demoapp" class="container mt-5">
+        <h2 class="text-center">Speech to Text</h2>
+        <div class="card p-4 mx-auto" style="max-width: 500px;">
+            <div class="form-group">
+                <label class="btn btn-primary btn-block">
+                    Input Audio File
+                    <input type="file" id="file-input" class="d-none">
+                </label>
+            </div>
+            <audio id="audio-preview" controls="controls" class="w-100 mt-3" style="display: none;">
+                <source src="" type="audio/mp4" />
+            </audio>
+            <div class="text-center mt-3">
+                <button id="transcribe-btn" class="btn btn-success">Transcribe Audio</button>
+            </div>
         </div>
+        <h4 id="output" class="mt-4" style="display: none;">Text: </h4>
     </div>
     <script type="text/javascript" src="demo.js"></script>
 </body>

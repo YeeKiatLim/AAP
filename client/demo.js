@@ -1,45 +1,45 @@
-const demoapp = {
-    data() {
-        return {
-            recorder: null,
-            audio_file: null
-        }
-    },
-    methods: {
-        uploadFile() {
-            this.audio_file = this.$refs.file.files[0]
-            this.playAudio()
-        },
-        playAudio: function () {
-            let audio = document.getElementById('audio-preview')
-            let reader = new FileReader()
+document.addEventListener('DOMContentLoaded', function () {
+    const demoApp = {
+        recorder: null,
+        audio_file: null,
 
-            reader.readAsDataURL(this.audio_file)
-            reader.addEventListener('load', function () {
-                audio.src = reader.result
-            })
+        init: function () {
+            document.getElementById('file-input').addEventListener('change', this.uploadFile.bind(this));
+            document.getElementById('transcribe-btn').addEventListener('click', this.transcribeAudio.bind(this));
         },
+
+        uploadFile: function (event) {
+            this.audio_file = event.target.files[0];
+            document.getElementById('audio-preview').style.display = 'block';
+            this.playAudio();            
+        },
+
+        playAudio: function () {
+            const audio = document.getElementById('audio-preview');
+            const reader = new FileReader();
+
+            reader.readAsDataURL(this.audio_file);
+            reader.addEventListener('load', function () {
+                audio.src = reader.result;
+            });
+        },
+
         transcribeAudio: function () {
-            const formData = new FormData()
-            formData.append('audio_file', this.audio_file)
-            const headers = { 'Content-Type': 'multipart/form-data' }
-            axios.post('http://127.0.0.1:8888/transcribe/', formData, { headers })
-                .then((res) => {
-                    document.getElementById('output').innerHTML = "Text: " + res.data.text[0]
-                })
-            /*fetch("http://127.0.0.1:8888/transcribe/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(("#myForm").serializeArray())
+            const formData = new FormData();
+            formData.append('audio_file', this.audio_file);
+
+            fetch('http://127.0.0.1:8888/transcribe/', {
+                method: 'POST',
+                body: formData
             })
             .then(response => response.json())
             .then(result => {
-                document.getElementById('output').innerHTML = "Text: " + result.text
-            })*/
+                document.getElementById('output').innerText = "Text: " + result.text[0];
+                document.getElementById('output').style.display = 'block';
+            })
+            .catch(error => console.error('Error:', error));
         }
-    }
-}
+    };
 
-Vue.createApp(demoapp).mount("#demoapp")
+    demoApp.init();
+});

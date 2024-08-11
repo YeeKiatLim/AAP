@@ -8,11 +8,11 @@ def download_model(model_path, model_name):
         # Create the directory
         os.makedirs(model_path)
 
-    processor = AutoProcessor.from_pretrained("PaidDatasetsBad/bad-whisper")
-    model = AutoModelForSpeechSeq2Seq.from_pretrained("PaidDatasetsBad/bad-whisper")
+    processor = AutoProcessor.from_pretrained(model_name)
+    model = AutoModelForSpeechSeq2Seq.from_pretrained(model_name)
 
     # Save the model and processor to the specified directory
     model.save_pretrained(model_path)
     processor.save_pretrained(model_path)
 
-download_model('models/', 'PaidDatasetsBad/bad-whisper')
+download_model('models/', 'PaidDatasetsBad/whisper-small-test')

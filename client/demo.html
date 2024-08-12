@@ -15,18 +15,21 @@
 </head>
 <body>
     <div id="demoapp" class="container mt-5">
-        <h2 class="text-center">Speech to Text</h2>
+        <h2 class="text-center">Mobile Call Scam Detection</h2>
         <div class="card p-4 mx-auto" style="max-width: 500px;">
-            <div class="form-group">
+            <div class="form-group mb-1">
                 <label class="btn btn-primary btn-block">
                     Input Audio File
                     <input type="file" id="file-input" class="d-none">
                 </label>
             </div>
+            <div class="text-center mt-1">
+                <button id="record-btn" class="btn btn-primary btn-block">Record Audio</button>
+            </div>
             <audio id="audio-preview" controls="controls" class="w-100 mt-3" style="display: none;">
                 <source src="" type="audio/mp4" />
             </audio>
-            <div class="text-center mt-3">
+            <div class="text-center mt-4">
                 <button id="transcribe-btn" class="btn btn-success">Transcribe Audio</button>
             </div>
         </div>

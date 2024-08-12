@@ -37,6 +37,33 @@
             <p id="pred" style="display: none;"></p>
         </div>
     </div>
+
+    <style>
+    /* Style for the chatbot iframe */
+        .chat-iframe {
+            position: fixed;
+            bottom: 150px;
+            right: 25px;
+            width: 50vh;
+            height: 0;
+            border: none;
+            display: block;
+            opacity: 0;
+            transition: height 0.5s ease-out, opacity 0.5s ease-out;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-iframe.open {
+            height: 430px;
+            opacity: 1;
+        }
+    </style>
+    
+     <!-- Chatbot iframe -->
+     <iframe class="chat-iframe" id="chat-iframe" allow="microphone;"
+     src="https://console.dialogflow.com/api-client/demo/embedded/fe70648b-3fff-45f4-8ae0-92a4c8a5e6f4"></iframe>
+
     <script type="text/javascript" src="demo.js"></script>
 </body>
 

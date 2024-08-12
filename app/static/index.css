@@ -1,0 +1,94 @@
+/* Jaryl's Stuff */
+
+.toggle-navbar a {
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+.toggle-navbar .active {
+    border-bottom: 3px solid orange;
+    color: orange;
+}
+
+.card {
+    border-style: dashed;
+}
+
+.hidden {
+    display: none;
+}
+
+.text-orange {
+    color: orange;
+}
+
+/* Style for the chat button */
+.chat-button {
+    position: fixed;
+    bottom: 50px;
+    right: 25px;
+    width: 80px;
+    height: 80px;
+    background-color: orange;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.chat-button:hover {
+    background-color: darkorange;
+}
+
+.chat-button.active {
+    background-color: darkorange;
+}
+
+/* Style for the chatbot iframe */
+.chat-iframe {
+    position: fixed;
+    bottom: 150px;
+    right: 25px;
+    width: 50vh;
+    height: 0;
+    border: none;
+    display: block;
+    opacity: 0;
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chat-iframe.open {
+    height: 430px;
+    opacity: 1;
+}
+
+/* Define keyframes for the spin animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-180deg);
+    }
+}
+
+/* Apply the spin animation to the icon when changing */
+.chat-button .icon.spin {
+    animation: spin 0.5s;
+}
+
+/* Ensure the icon change is smooth */
+.chat-button .icon {
+    transition: transform 0.5s ease-in-out;
+}

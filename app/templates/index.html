@@ -1,13 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>ASR Demo Webpage</title>
-    </head>
-    <body>
-        <form action="http://localhost:8888/transcribe/" method="POST" enctype="multipart/form-data">
-            <input type="file" name="audio_file" />
-            <input type="submit"/>
-        </form>
-    </body>
-</html>
+{% extends "base.html" %}
+{% block title %}Message to Text{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Carl & Yee Kiat -->
+<div id="demoapp" class="container mt-5">
+    <h2 class="text-center">Speech to Text</h2>
+    <div class="card p-4 mx-auto" style="max-width: 500px;">
+        <div class="form-group">
+            <label class="btn btn-primary btn-block">
+                Input Audio File
+                <input type="file" id="file-input" class="d-none">
+            </label>
+        </div>
+        <audio id="audio-preview" controls="controls" class="w-100 mt-3" style="display: none;">
+            <source src="" type="audio/mp4" />
+        </audio>
+        <div class="text-center mt-3">
+            <button id="transcribe-btn" class="btn btn-success">Transcribe Audio</button>
+        </div>
+    </div>
+    <h4 id="output" class="mt-4" style="display: none;">Text: </h4>
+    <div id="result">
+        <p id="scam_prob" style="display: none;"></p>
+        <p id="legit_prob" style="display: none;"></p>
+        <p id="pred" style="display: none;"></p>
+    </div>
+</div>
+
+<!-- Elijah & Jaryl -->
+<h1 class="display-4">Text Spam Analysis</h1>
+
+{% if error %}
+<p class="error">{{ error }}</p>
+{% endif %}
+
+<form class="mb-2" action="/elijah" method="post" enctype="multipart/form-data">
+    <label for="formFile" class="form-label">Input a File</label>
+    <input class="form-control" type="file" id="formFile" name="file" accept="image/*">
+    <button type="submit" class="btn btn-primary mt-2">Upload</button>
+</form>
+
+<div>
+    <div class="d-flex justify-content-between mb-2">
+        {% if processed_image %}
+        <h2>Extracted Text and Classification Results:</h2>
+        <div class="image-container" style="flex: 0 0 40%;">
+            <img src="data:image/png;base64,{{ processed_image }}" alt="Processed Image" class="img-fluid"
+                style="max-width: 100%;">
+        </div>
+        {% endif %}
+    
+        {% if extracted_texts %}
+        <div class="results" style="flex: 1; margin-left: 20px;">
+            <ul class="list-group">
+                {% for text in extracted_texts %}
+                <li class="list-group-item">
+                    <h5 class="mb-2">Extracted Text:</h5>
+                    <pre class="bg-light p-3">{{ text.text }}</pre>
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <span class="badge {% if text.classification == 'spam' %}bg-danger{% else %}bg-success{% endif %}">
+                            Classification: {{ text.classification | capitalize }}
+                        </span>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Jaryl -->
+<div class="text-center py-5">
+    <h1 class="display-4 text-darkorange">Spam Detection (Jaryl)</h1>
+
+    <div class="container text-center py-5">
+        <h1 class="display-4 text-orange">AntiSpam</h1>
+        <p class="fs-5">Ham or Spam? Let's find out.</p>
+
+        <!-- Toggle Navbar -->
+        <div class="d-flex justify-content-center toggle-navbar mb-4">
+            <a id="toggle-upload" class="px-4 active">Upload</a>
+            <a id="toggle-text" class="px-4">Text</a>
+        </div>
+
+        <!-- Upload Form -->
+        <div class="card p-4 mb-4 w-75 mx-auto" id="upload-container">
+            <h2>Upload</h2>
+            <div id="drop-zone" class="p-5 border border-warning rounded">
+                <p>Drag & drop your file here</p>
+                <input type="file" id="file-upload" class="form-control mb-3" style="display: none;" />
+                <label for="file-upload" class="btn btn-warning">Choose File</label>
+            </div>
+        </div>
+
+        <!-- Manual Text Input Form -->
+        <div class="card p-4 mb-4 w-75 mx-auto hidden" id="text-container">
+            <h2>Text</h2>
+            <textarea class="form-control mb-3" id="text-input" placeholder="Enter text here"></textarea>
+            <button class="btn btn-warning" id="submit-button">Submit</button>
+        </div>
+    </div>
+
+    <!-- Chat button -->
+    <div class="chat-button" id="chat-button">
+        <i class="fas fa-comments icon"></i>
+    </div>
+
+    <!-- Chatbot iframe -->
+    <iframe class="chat-iframe" id="chat-iframe" allow="microphone;"
+        src="https://console.dialogflow.com/api-client/demo/embedded/e65140e3-788e-4642-8cc5-8b17d7bbe440">
+    </iframe>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='jarylchatbot.js') }}"></script>
+<script src="{{ url_for('static', filename='demo.js') }}"></script>
+{% endblock %}

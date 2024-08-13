@@ -5,6 +5,7 @@ torch
 joblib
 scikit-learn
 Werkzeug==2.0.3
+python-dotenv
 
 # Roboflow Inference
 inference-gpu
